@@ -12,9 +12,9 @@ data "template_file" "cloud_init" {
 }
 
 # debug cloud-init config file
-output "rendered" {
-  value = "${data.template_file.cloud_init.rendered}"
-}
+#output "rendered" {
+#  value = "${data.template_file.cloud_init.rendered}"
+#}
 
 # Create a server
 resource "hcloud_server" "k3s" {
@@ -24,6 +24,11 @@ resource "hcloud_server" "k3s" {
   ssh_keys = [ data.hcloud_ssh_key.ssh_key.id]
 
   user_data = "${data.template_file.cloud_init.rendered}"
+
+  provisioner "file" {
+    source      = "${path.module}/scripts/bootstrap.sh"
+    destination = "/root/bootstrap.sh"
+  }
 
   connection {
     type="ssh"
