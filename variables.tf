@@ -30,8 +30,12 @@ variable "node_image" {
   default = "ubuntu-22.04"
 }
 
-variable "master_type" {
+variable "server_type" {
   default = "cx11"
+}
+
+variable "volume_size" {
+  default = 10
 }
 
 variable "ssh_fingerprint" {} //finger print of ssh key already present in Hetzner project
