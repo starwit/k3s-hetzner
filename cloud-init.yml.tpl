@@ -18,7 +18,7 @@ packages:
   - software-properties-common
   - inetutils-traceroute
   - tmux
-  - vim  
+  - vim
   - tailscale
 runcmd:
   - [tailscale, up, --authkey, ${tailscale_key}]
@@ -28,4 +28,5 @@ runcmd:
   - ufw allow in on tailscale0 to any port 80 proto tcp
   - ufw allow in on tailscale0 to any port 443 proto tcp
   - ufw allow in on tailscale0 to any port 6443 proto tcp
-  - curl -sfL https://get.k3s.io | sh -
+  - export IP=`tailscale ip --4`
+  - chmod u+x /root/install_k3s.sh

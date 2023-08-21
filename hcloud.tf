@@ -25,14 +25,14 @@ resource "hcloud_server" "k3s" {
 
   user_data = "${data.template_file.cloud_init.rendered}"
 
-  provisioner "file" {
-    source      = "${path.module}/scripts/bootstrap.sh"
-    destination = "/root/bootstrap.sh"
-  }
-
   connection {
     type="ssh"
     host = "${hcloud_server.k3s.ipv4_address}"
     agent = true
   }
+
+  provisioner "file" {
+    source      = "${path.module}/scripts/install_k3s.sh"
+    destination = "/root/install_k3s.sh"
+  }  
 }
