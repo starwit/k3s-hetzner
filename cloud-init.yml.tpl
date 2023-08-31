@@ -21,12 +21,5 @@ packages:
   - vim
   - tailscale
 runcmd:
-  - [tailscale, up, --authkey, ${tailscale_key}]
-  - ufw allow ssh
-  - ufw --force enable
-  - ufw allow in on eth0 to any port 443 proto tcp
-  - ufw allow in on tailscale0 to any port 80 proto tcp
-  - ufw allow in on tailscale0 to any port 443 proto tcp
-  - ufw allow in on tailscale0 to any port 6443 proto tcp
-  - export IP=`tailscale ip --4`
-  - chmod u+x /root/install_k3s.sh
+  - tailscale up --authkey ${tailscale_key}
+  - curl -sfL https://get.k3s.io | sh -s -

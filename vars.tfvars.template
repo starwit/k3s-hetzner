@@ -1,0 +1,6 @@
+hcloud_token = ""
+env_name = "name"
+server_type = "cx11"
+location = "fsn1"
+ssh_key_name = "hetzner-terraform"
+tailscale_auth_key = ""

@@ -5,12 +5,6 @@ terraform {
       source = "hetznercloud/hcloud"
       version = ">= 0.14"
     }
-
-    tailscale = {
-      source  = "tailscale/tailscale"
-      version = ">= 0.13"
-    } 
-
   }
 }
 
@@ -19,11 +13,7 @@ provider "hcloud" {
   token = "${var.hcloud_token}"
 }
 
-variable "tailscale_api_key" {}
-provider "tailscale" {
-  api_key = "${var.tailscale_api_key}"
-  tailnet = "starwit.de"
-}
+variable "tailscale_auth_key" {}
 
 variable "env_name" {}
 
@@ -35,14 +25,9 @@ variable "server_type" {
   default = "cx11"
 }
 
-variable "volume_size" {
-  default = 10
+// possible values nbg1, fsn1, hel1, ash or hil
+variable "location" {
+  default = "fsn1"
 }
 
-variable "datacenter" {
-  default = "hel1-dc2"
-}
-
-variable "ssh_fingerprint" {} //fingerprint of ssh key already present in Hetzner project
-variable "ssh_private_key" {}
-
+variable "ssh_key_name" {}
