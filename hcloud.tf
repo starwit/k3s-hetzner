@@ -128,7 +128,7 @@ resource "hcloud_load_balancer_service" "load_balancer_service" {
   http {
     redirect_http   = true
     sticky_sessions = true
-    cookie_name     = "EXAMPLE_STICKY"
+    cookie_name     = "${var.env_name}"
     certificates    = [hcloud_managed_certificate.lb_cert.id]
   }
 
