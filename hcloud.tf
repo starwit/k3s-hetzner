@@ -97,8 +97,8 @@ resource "hcloud_managed_certificate" "lb_cert" {
 }
 
 # load balancer
-resource "hcloud_load_balancer" "wob-tsp-staging" {
-  name               = "wob-tsp-staging"
+resource "hcloud_load_balancer" "lb" {
+  name               = "${var.env_name}-lb"
   load_balancer_type = "lb11"
   location           = "${var.location}"
   labels = {
@@ -107,8 +107,8 @@ resource "hcloud_load_balancer" "wob-tsp-staging" {
 }
 
 # attach LB to network
-resource "hcloud_load_balancer_network" "wob-tsp-staging-srvnetwork" {
-  load_balancer_id = hcloud_load_balancer.wob-tsp-staging.id
+resource "hcloud_load_balancer_network" "lb-network" {
+  load_balancer_id = hcloud_load_balancer.lb.id
   network_id       = hcloud_network.internal-network.id
   ip               = "10.0.1.5"
 }
@@ -116,13 +116,13 @@ resource "hcloud_load_balancer_network" "wob-tsp-staging-srvnetwork" {
 # target for lb
 resource "hcloud_load_balancer_target" "load_balancer_target" {
   type             = "server"
-  load_balancer_id = hcloud_load_balancer.wob-tsp-staging.id
+  load_balancer_id = hcloud_load_balancer.lb.id
   server_id        = hcloud_server.k3s.id
   use_private_ip   = true
 }
 
 resource "hcloud_load_balancer_service" "load_balancer_service" {
-  load_balancer_id = hcloud_load_balancer.wob-tsp-staging.id
+  load_balancer_id = hcloud_load_balancer.lb.id
   protocol         = "https"
 
   http {
