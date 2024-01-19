@@ -1,7 +1,9 @@
 hcloud_token = ""
+# Please use an informative env name (e.g. "<customer>-<project>-<environment>")
 env_name = "name"
 server_type = "cx11"
 location = "fsn1"
 ssh_key_name = "hetzner-terraform"
 tailscale_auth_key = ""
+# You cannot reuse an existing base domain that still has certificates somewhere else (the hcloud plugin might just crash)
 base_domain = ""
