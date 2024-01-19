@@ -47,6 +47,8 @@ resource "hcloud_network" "internal-network" {
   labels = {
     label_1 = "${var.env_name}"
   }
+
+  delete_protection = true
 }
 
 resource "hcloud_network_subnet" "network-subnet" {
@@ -81,6 +83,9 @@ resource "hcloud_server" "k3s" {
   labels = {
     label_1 = "${var.env_name}"
   }
+
+  delete_protection = true
+  rebuild_protection = true
 }
 
 output "ipv4" {
@@ -104,6 +109,8 @@ resource "hcloud_load_balancer" "lb" {
   labels = {
     label_1 = "${var.env_name}"
   }  
+
+  delete_protection = true
 }
 
 # attach LB to network
