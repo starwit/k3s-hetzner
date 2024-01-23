@@ -20,6 +20,24 @@ packages:
   - tmux
   - vim
   - tailscale
+
 runcmd:
   - tailscale up --authkey ${tailscale_key}
   - curl -sfL https://get.k3s.io | sh -s -
+
+write_files:
+  - path: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+    content: |
+      apiVersion: helm.cattle.io/v1
+      kind: HelmChartConfig
+      metadata:
+        name: traefik
+        namespace: kube-system
+      spec:
+        valuesContent: |-
+          ports:
+            web:
+              forwardedHeaders:
+                trustedIPs:
+                  - 10.0.0.0/8
+    defer: true

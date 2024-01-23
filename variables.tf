@@ -3,7 +3,7 @@ terraform {
   required_providers {
     hcloud = {
       source = "hetznercloud/hcloud"
-      version = ">= 0.14"
+      version = "1.45.0"
     }
   }
 }
@@ -31,3 +31,8 @@ variable "location" {
 }
 
 variable "ssh_key_name" {}
+
+# domain used for load balancer and certificates
+variable "base_domain" {
+  default = "example.com"
+}
